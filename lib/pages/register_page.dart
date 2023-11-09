@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mensagens/components/my_button.dart';
 import 'package:mensagens/components/my_text_field.dart';
+import 'package:mensagens/services/auth/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -15,7 +17,31 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  void singUp() {}
+  void singUp() async {
+    if (passwordController.text != confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Senhas estão diferentes!'),
+        ),
+      );
+      return;
+    }
+
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authService.singUpWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

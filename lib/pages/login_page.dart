@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mensagens/components/my_button.dart';
 import 'package:mensagens/components/my_text_field.dart';
+import 'package:mensagens/services/auth/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -14,7 +16,22 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void singIn() {}
+  void singIn() async {
+    final authService = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authService.singInWithEmailAndPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.toString(),
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +73,11 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Não possui conta?'),
+                      const Text('Não possui conta? '),
+                      const SizedBox(height: 4),
                       GestureDetector(
                         onTap: widget.onTap,
-                        child: Text(
+                        child: const Text(
                           'Cadastre-se!',
                           style: TextStyle(
                             color: Colors.blue,

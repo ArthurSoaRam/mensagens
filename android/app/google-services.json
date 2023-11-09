@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "387138734521",
+    "project_id": "appchatmensagens",
+    "storage_bucket": "appchatmensagens.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387138734521:android:5cc7e53f858c0d846ace68",
+        "android_client_info": {
+          "package_name": "com.example.mensagens"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3cNywP43--5uS9LVHo2QqzohljsAJS0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
